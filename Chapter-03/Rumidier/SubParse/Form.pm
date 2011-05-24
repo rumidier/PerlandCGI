@@ -3,10 +3,6 @@ package Rumidier::SubParse::Form;
 use strict;
 use warnings;
 
-print "Content-type: text/html\n\n";
-foreach my $env_val (keys %ENV) {
-  print "* $env_val : $ENV{$env_val}<br />\n";
-}
 sub parse {
     my @pairs;
 
