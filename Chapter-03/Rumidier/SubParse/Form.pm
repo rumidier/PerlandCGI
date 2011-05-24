@@ -28,8 +28,6 @@ sub parse {
         print "<p>Use Post or Get";
     }
 
-
-
     my %formdata;
     foreach my $pair (@pairs) {
         my ( $key, $value ) = split( /=/, $pair );
