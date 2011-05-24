@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C/DTD XHTML 1.0 Strict//EN"
+"http://www.w3c.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type"
+    	  content="text/html; charset=UTP-8" />
+    <title>zonemap</title>
+  </head>
+  <body>
+   <h3>Choose the kind of information you're looking for, and then click on city you're interested in.</h3>
+     <form action="http://localhost/~rumidier/Chapter-03/znemap.cgi" method="POST">
+        <br />
+        <input type="radio" name="infotype" value="time" />Local time
+        <input type="radio" name="infotype" value="weather" />Local weather
+        <input type="radio" name="infotype" value="directions" />Diretions
+        <input type="radio" name="infotype" value="statistics" />City statistics
+
+        <p>
+        <input type="image" src="zonemap.gif" name="coord" alt="no image">
+        </p>
+    </form>
+  </body>
+
+</html>

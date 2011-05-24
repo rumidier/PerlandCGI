@@ -1,0 +1,49 @@
+<FORM ACTION="http://localhost/~rumidier/Chapter-03/display_param.cgi" METHOD=POST>
+
+Name: <INPUT TYPE="text" NAME="name">
+Address: <INPUT TYPE="text" NAME="address" SIZE=30>
+
+<p>City: <INPUT TYPE="text" NAME="city">
+State: <INPUT TYPE="text" NAME="state" SIZE=2 MAXLENGTH=2>
+Zipcode: <INPUT TYPE="text" NAME="zip" SIZE=5 MAXLENGTH=5>
+Customer Code: <INPUT TYPE="password" NAME="code" SIZE=8>
+<HR>
+
+<B>Type of wood:</B>
+<SELECT NAME="woodtype">
+<OPTION VALUE="Mahogany">Mahogany
+<OPTION VALUE="Maplewood">Maplewood
+<OPTION VALUE="Pine">Pine
+<OPTION VALUE="Cherry">Cherry
+</SELECT>
+
+<B>Size:</B>
+<INPUT TYPE="radio" NAME="size" VALUE="K">King
+<INPUT TYPE="radio" NAME="size" VALUE="Q">Queen
+<INPUT TYPE="radio" NAME="size" VALUE="T">Twin
+<INPUT TYPE="radio" NAME="size" VALUE="S">Single
+
+<P><B>Extras:</B>
+<INPUT TYPE="Checkbox" NAME="extras" VALUE="foot">footboard
+<INPUT TYPE="Checkbox" NAME="extras" VALUE="drawers">Drawers (for underneath)
+<INPUT TYPE="Checkbox" NAME="extras" VALUE="casters">Casters
+<INPUT TYPE="Checkbox" NAME="extras" VALUE="nosqueak">Squeak proofing
+
+<HR>
+Please share any suggestions or comments with us:
+<br />
+<TEXTAREA NAME="comments" ROWS=3 COLS=65 WRAP>Comments?</TEXTAREA>
+
+<HR>Would you like us to call you before shipping your bed?
+<INPUT TYPE="radio" NAME="call_first" VALUE"Yes"> Yes
+<INPUT TYPE="radio" NAME="call_first" VALUE"No"> No 
+<P>Would you lik us to share your name, address, and bedding preferences with every
+mailling list on the continent?
+<INPUT TYPE="radio" NAME="mail_list" VALUE"Yes"> Yes
+<INPUT TYPE="radio" NAME="mail_list" VALUE"No"> No
+
+<HR>
+<INPUT TYPE="submit" VALUE="Order Bed">
+<INPUT TYPE="reset" VALUE="Start over">
+
+</FORM>
