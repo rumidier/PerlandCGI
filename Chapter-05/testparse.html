@@ -1,0 +1,33 @@
+<!DOCTYPE html PBULIC "-//W3C/DTD XHTML 1.0 Strict//EN"
+   "http://www.w3c.org/TR/xhtml11/DTD/xhtml1-strict.dtd">
+
+<html>
+  <head>
+     <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8" />
+     <title>Test form</title>
+  </head>
+  <body>
+     <form action="http://localhost/~rumidier/PerlandCGI/Chapter-05/printbrowser.cgi" METHOD=POST>
+    Name <input type=text name="name" size=15>
+    Address: <input type=text name="address" size=30>
+    <hr />
+    Age <select name="age" siz=5>
+    <option value="Under 11">Undr 11
+    <option value="11-20">11-20
+    <option value="21-30">21-30
+    <option value="31-40">31-40
+    <option value="Over 40">Over 40
+    </select>
+    Favorite State
+    <input type=checkbox name=state value=CA>CA
+    <input type=checkbox name=state value=ME>ME
+    <input type=checkbox name=state value=NY>NY
+
+    <hr />
+    <input type=submit value=Submit>
+    <input type="reset" value="Reset">
+    </form>
+
+  </body>
+</html>
