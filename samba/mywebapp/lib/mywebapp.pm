@@ -22,7 +22,14 @@ any '/test' => sub {
 };
 
 get '/select' => sub {
-    template 'select';
+    template 'select', {
+        u_add => '/u_add',
+        u_del => '/u_del',
+    };
+};
+
+post '/u_add' => sub {
+    template 'u_add';
 };
 
 post '/sum' => sub {
