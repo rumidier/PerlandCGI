@@ -4,11 +4,6 @@ use Dancer ':syntax';
 
 our $VERSION = '0.1';
 
-get '/hello/:name' => sub {
-    my $name = params->{name};
-    template 'hello', { name => $name };
-};
-
 get '/gksdud' => sub {
     template 'gksdud';
 };
@@ -23,19 +18,20 @@ any '/test' => sub {
 
 get '/select' => sub {
     template 'select', {
-        u_add => '/u_add',
+        u_add => '/add',
         u_del => '/u_del',
     };
 };
 
-post '/u_add' => sub {
-    template 'u_add';
+post '/add' => sub {
+    template 'add';
 };
 
 post '/sum' => sub {
     "I say a number:".params->{number};
 };
 
+=pod
 get '/add' => sub {
     template 'test', {
         action => '/add',
@@ -55,5 +51,5 @@ post '/add' => sub {
 #        sum     => $num1 + $num2,
     };
 };
-
+=cut
 true;
