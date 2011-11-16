@@ -29,16 +29,16 @@ get '/add' => sub {
 post '/add' => sub {
     my $u_id     = param('u_id');
     my $u_name   = param('u_name');
-    my $u_passwd = param('u_passwd');
+    my $u_passwd = param('passwd');
     my $d_group  = param('d_group');
     my $d_group  = param('a_group');
 
     template 'add', {
-        u_id     => 'u_id',
-        u_name   => 'u_name',
-        u_passwd => 'u_passwd',
-        d_group  => 'd_group',
-        a_group  => 'a_group',
+        u_id     => $u_id,
+        u_name   => $u_name,
+        u_passwd => $u_passwd,
+        d_group  => $d_group,
+        a_group  => $a_group,
     };
 };
 
