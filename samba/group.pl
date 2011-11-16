@@ -6,7 +6,15 @@ use warnings;
 use Unix::GroupFile;
 
 my $grp = new Unix::GroupFile "/etc/group";
-$grp->group("cv", "rumidier2", $grp->maxgid+1, 'rumidier2');
-$grp->add_user("cv", "jo", "good");
-$grp->passwd("cv", $grp->encpass("rumidier2"));
+my $gid = $grp->maxgid;
+$gid++;
+
+print "sudo groupadd -g $gid bv_cath";
+print "\n";
+$gid++;
+print "sudo groupadd -g $gid cv_cath";
+print "\n";
+$gid++;
+print "sudo groupadd -g $gid dv_cath";
+print "\n";
 undef $grp;
