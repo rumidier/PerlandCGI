@@ -1,0 +1,8 @@
+> # Creating for N111623(서희원) ...
+> /usr/sbin/pw useradd N111623 -n N111623 -c 서희원 -d /pool01/home/N111623 -g cv -G cv_cath -s /sbin/nologin -h -
+> (echo "1623" ; echo "1623") | /usr/local/bin/smbpasswd -as N111623
+> /sbin/zfs create pool01/home/N111623
+> /sbin/zfs set quota=1G pool01/home/N111623
+> /usr/sbin/chown -R N111623:cv /pool01/home/N111623
+> /bin/chmod -R 700 /pool01/home/N111623
+> echo "N111623(서희원) done"

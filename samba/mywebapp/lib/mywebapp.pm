@@ -1,12 +1,9 @@
 package mywebapp;
 use Template;
+use Unix::GroupFile;
 use Dancer ':syntax';
 
 our $VERSION = '0.1';
-
-get '/gksdud' => sub {
-    template 'gksdud';
-};
 
 get '/' => sub {
     template 'index';
@@ -23,8 +20,26 @@ get '/select' => sub {
     };
 };
 
+get '/add' => sub {
+    template 'add', {
+        action   => 'add',
+    };
+};
+
 post '/add' => sub {
-    template 'add';
+    my $u_id     = param('u_id');
+    my $u_name   = param('u_name');
+    my $u_passwd = param('u_passwd');
+    my $d_group  = param('d_group');
+    my $d_group  = param('a_group');
+
+    template 'add', {
+        u_id     => 'u_id',
+        u_name   => 'u_name',
+        u_passwd => 'u_passwd',
+        d_group  => 'd_group',
+        a_group  => 'a_group',
+    };
 };
 
 post '/sum' => sub {

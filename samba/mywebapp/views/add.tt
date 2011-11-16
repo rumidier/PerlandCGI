@@ -1,14 +1,9 @@
 <form action="<% action %>" method="post">
-  number 1: <input type="text" name="num-1" id="num-1"/> <br/>
-  number 2: <input type="text" name="num-2" id="num-2"/> <br/>
-  number 3: <input type="text" name="num-3" id="num-3"/> <br/>
-  number 4: <input type="text" name="num-4" id="num-4"/> <br/>
-  number 5: <input type="text" name="num-5" id="num-5"/> <br/>
-  number 6: <input type="text" name="num-6" id="num-6"/> <br/>
-  number 7: <input type="text" name="num-7" id="num-7"/> <br/>
-  number 8: <input type="text" name="num-8" id="num-8"/> <br/>
-  number 9: <input type="text" name="num-9" id="num-9"/> <br/>
-  number 10: <input type="text" name="num-10" id="num-10"/> <br/>
+  ID : <input type="text" name="u_id" id="u_id"/> <br/>
+  사용자 : <input type="text" name="u_name" id="u_name"/> <br/>
+  비밀번호 : <input type="text" name="passwd" id="passwd"/> <br/>
+  기본 그룹: <input type="text" name="d_group" id="d_group"/> <br/>
+  공통 그룹: <input type="text" name="a_group" id="a_group"/> <br/>
   <input type="submit" value="Submit" />
 </form>
 <hr />
