@@ -31,7 +31,7 @@ post '/add' => sub {
     my $u_name   = param('u_name');
     my $u_passwd = param('passwd');
     my $d_group  = param('d_group');
-    my $d_group  = param('a_group');
+    my $a_group  = param('a_group');
 
     template 'add', {
         u_id     => $u_id,
