@@ -1,4 +1,7 @@
 package mywebapp;
+
+use 5.014;
+use Passwd::Unix;
 use Template;
 use Unix::GroupFile;
 use Dancer ':syntax';
@@ -9,10 +12,6 @@ get '/' => sub {
     template 'index';
 };
 
-any '/test' => sub {
-    template 'test';
-};
-
 get '/select' => sub {
     template 'select', {
         u_add => '/add',
@@ -20,18 +19,23 @@ get '/select' => sub {
     };
 };
 
-get '/add' => sub {
-    template 'add', {
-        action   => 'add',
-    };
+post '/add' => sub {
+	template 'add', {
+		action => '/u_add',
+	};
 };
 
-post '/add' => sub {
+post '/u_add' => sub {
     my $u_id     = param('u_id');
     my $u_name   = param('u_name');
     my $u_passwd = param('passwd');
     my $d_group  = param('d_group');
     my $a_group  = param('a_group');
+
+    my $pu = Passwd::Unix->new();
+    my $err = $pu->user($u_id, $pu->encpass($u_passwd), $pu->maxuid + 1, $pu->maxuid + 1,
+$u_name, "/home/s-rumidier/$u_id", "/sbin/nologin"); 
+    mkdir "/home/s-rumidier/$u_id";
 
     template 'add', {
         u_id     => $u_id,
@@ -41,12 +45,12 @@ post '/add' => sub {
         a_group  => $a_group,
     };
 };
+=pod
 
 post '/sum' => sub {
     "I say a number:".params->{number};
 };
 
-=pod
 get '/add' => sub {
     template 'test', {
         action => '/add',
@@ -63,8 +67,10 @@ post '/add' => sub {
         action  => '/add',
         num1    => $num1,
         num2    => $num2,
-#        sum     => $num1 + $num2,
+        sum     => $num1 + $num2,
     };
 };
 =cut
+
+
 true;
