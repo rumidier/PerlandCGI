@@ -32,10 +32,8 @@ post '/u_add' => sub {
     my $d_group  = param('d_group');
     my $a_group  = param('a_group');
 
-    my $pu = Passwd::Unix->new();
-    my $err = $pu->user($u_id, $pu->encpass($u_passwd), $pu->maxuid + 1, $pu->maxuid + 1,
-$u_name, "/home/s-rumidier/$u_id", "/sbin/nologin"); 
-    mkdir "/home/s-rumidier/$u_id";
+    user_add ($u_id, $pu->encpass($u_passwd), $pu->maxuid + 1);
+    group_add ($d_group, $a_group);
 
     template 'add', {
         u_id     => $u_id,
@@ -44,6 +42,17 @@ $u_name, "/home/s-rumidier/$u_id", "/sbin/nologin");
         d_group  => $d_group,
         a_group  => $a_group,
     };
+};
+
+sub user_add {
+    my $pu = Passwd::Unix->new();
+
+    my $err = $pu->user($u_id, $pu->encpass($u_passwd), $pu->maxuid + 1, $pu->maxuid + 1,
+$u_name, "/home/s-rumidier/$u_id", "/sbin/nologin"); 
+    mkdir "/home/s-rumidier/$u_id";
+};
+
+sub group_add {
 };
 =pod
 
