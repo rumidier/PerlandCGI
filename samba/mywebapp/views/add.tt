@@ -1,9 +1,9 @@
 <form action="<% action %>" method="post">
-  ID : <input type="text" name="u_id" id="u_id"/> <br/>
-  사용자 : <input type="text" name="u_name" id="u_name"/> <br/>
-  비밀번호 : <input type="text" name="passwd" id="passwd"/> <br/>
-  기본 그룹: <input type="text" name="d_group" id="d_group"/> <br/>
-  공통 그룹: <input type="text" name="a_group" id="a_group"/> <br/>
+<label for="id">ID : </label><input type="text" name="u_id" id="u_id"/> <br/>
+<label for="name">사용자 : </label><input type="text" name="u_name" id="u_name"/> <br/>
+<label for="passwd">비밀번호 : </label><input type="text" name="passwd" id="passwd"/> <br/>
+<label for="d_group">기본 그룹: </label><input type="text" name="d_group" id="d_group"/> <br/>
+<label for="a_group">공통 그룹: </label><input type="text" name="a_group" id="a_group"/> <br/>
   <input type="submit" value="Submit" />
 </form>
 <hr />
