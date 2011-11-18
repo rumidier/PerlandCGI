@@ -1,7 +1,7 @@
-<form action="<% action %>" method="post">
+<form action="<% request.uri_base %>/add" method="post">
 <label for="id">ID : </label><input type="text" name="u_id" id="u_id"/> <br/>
 <label for="name">사용자 : </label><input type="text" name="u_name" id="u_name"/> <br/>
-<label for="passwd">비밀번호 : </label><input type="text" name="passwd" id="passwd"/> <br/>
+<label for="passwd">비밀번호 : </label><input type="password" name="passwd" id="passwd"/> <br/>
 <label for="d_group">기본 그룹: </label><input type="text" name="d_group" id="d_group"/> <br/>
 <label for="a_group">공통 그룹: </label><input type="text" name="a_group" id="a_group"/> <br/>
   <input type="submit" value="Submit" />
