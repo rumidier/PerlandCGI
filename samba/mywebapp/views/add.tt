@@ -3,6 +3,19 @@
 <label for="name">사용자 : </label><input type="text" name="u_name" id="u_name"/> <br/>
 <label for="passwd">비밀번호 : </label><input type="password" name="passwd" id="passwd"/> <br/>
 <label for="d_group">기본 그룹: </label><input type="text" name="d_group" id="d_group"/> <br/>
+
+<fieldset>
+  <legend>another_group</legend>
+    <input type="checkbox" name="l_group" value="av_cath" />
+    av_cath <br />
+    <input type="checkbox" name="l_group" value="bv_cath" />
+    bv_cath <br />
+    <input type="checkbox" name="l_group" value="cv_cath" />
+    cv_cath <br />
+    <input type="checkbox" name="l_group" value="dv_cath" />
+    dv_cath <br />
+</fieldset>
+
 <label for="a_group">공통 그룹: </label><input type="text" name="a_group" id="a_group"/> <br/>
   <input type="submit" value="Submit" />
 </form>
