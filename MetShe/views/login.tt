@@ -1,0 +1,6 @@
+
+<form action="[% request.uri_base %]/login" method="post">
+<label for="email">EMAIL</label><input type="text" name="email" id="email" class="required email" />
+<label for="password">패스워드</label><input type="text" name="passwd" id="password" class="required password=" />
+<input type="submit" value="로그인" />
+</form>

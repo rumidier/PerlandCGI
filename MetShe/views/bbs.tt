@@ -1,0 +1,8 @@
+
+<a href="[% request.uri_for('/bbs/' _ id _ '/post') %]">쓰기</a>
+
+[% FOREACH row IN rows.reverse %]
+<p>[% row.id %]</p>
+<p>[% row.comment %]</p>
+<hr/>
+[% END %]

@@ -1,0 +1,10 @@
+
+<form action="[% request.uri_base %]/signup" method="post">
+  <label for="email">EMAIL</label><input type="text" name="email" id="email" class="email required" />
+  <label for="password">패스워드</label><input type="password" name="passwd" id="password" class="password required" />
+  <label for="password2">패스워드(확인)</label><input type="password" name="passwd2" id="password2" class="password required" />
+  <label>성별</label> <input type="radio" name="gender" value="1" />남자 <input type="radio" name="gender" value="2" />여자
+  <label for="birthday">생년월일</label><input type="text" name="birthday" id="birthday" class="date required" />
+  <input type="submit" value="회원가입" />
+</form>
+

@@ -1,0 +1,4 @@
+<form action="[% request.uri_for('/bbs/' _ id _ '/post') %]" method="post">
+ <textarea cols="80" rows="3" name="comment"></textarea>
+ <input type="submit" value="POST" />
+</form>
