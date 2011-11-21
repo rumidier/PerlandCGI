@@ -1,6 +1,8 @@
 package mywebapp;
 
 use 5.014;
+use warnings;
+use strict;
 use Passwd::Unix;
 use Unix::GroupFile;
 use Template;
@@ -29,20 +31,18 @@ post '/add' => sub {
     my $a_group  = param('a_group');
     my $groups   = param('l_group');
 
-#    my @group_s = $groups; 
-    debug "\n";
-    debug "\n";
-    debug "\n";
-    debug "\n";
-    debug "$groups";
-    debug "\n";
-    debug "\n";
-    debug "\n";
-    debug "\n";
-    debug "\n";
-
-#    user_add ($u_id, $u_passwd, $u_name);
-#    group_add ($u_id, $a_group);
+#
+# groups가 NULL 인지 비교한후 NULL이 아니면 문자열 인지, arry ref 인지
+# 확인하여 처리한다. 
+#
+    if (defined $groups) {
+        if (ref($groups) eq 'ARRAY') {
+            debug ref($groups);
+        }
+        elsif (!ref($groups)) {
+            debug "----------  DEBUG -------------";
+        }
+    }
 
     template 'add', {
         u_id     => $u_id,
