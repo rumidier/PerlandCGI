@@ -3,6 +3,6 @@
 </form>
 <hr />
 
-<form action="<% u_del %>" method="post">
+<form action="<% request.uri_base %>/del" method="get">
   <input type="submit" value="삭제" />
 </form>

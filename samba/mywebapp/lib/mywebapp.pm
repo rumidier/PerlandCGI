@@ -27,8 +27,6 @@ post '/add' => sub {
     my $u_id     = param('u_id');
     my $u_name   = param('u_name');
     my $u_passwd = param('passwd');
-    my $d_group  = param('d_group');
-    my $a_group  = param('a_group');
     my $groups   = param('l_group');
 
 #
@@ -48,13 +46,20 @@ post '/add' => sub {
         u_id     => $u_id,
         u_name   => $u_name,
         u_passwd => $u_passwd,
-        d_group  => $d_group,
-        a_group  => $a_group,
     };
 
 };
 
-=pod
+get '/del' => sub {
+	template 'del';
+};
+
+post '/del' => sub {
+    my $u_id = param('u_id');
+
+	template 'del';
+};
+
 sub mk_dir {
     my $id = shift;
     mkdir "/home/s-rumidier/$id";
@@ -77,6 +82,17 @@ sub user_add {
     mk_dir($id);
 };
 
+sub user_del {
+    my ($id) = @_;
+
+    my $pu = Passwd::Unix->new();
+    $pu->del($id);
+};
+
+
+
+
+=pod
 sub group_add {
     my $id = shift;
     my @group = @_;

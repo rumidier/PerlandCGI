@@ -14,13 +14,9 @@
     dv_cath <br />
 </fieldset>
   <input type="submit" value="Submit" />
-  1;3P
-  1;3Q
 </form>
 <hr />
 
 <% u_id %>
 <% u_name %>
 <% u_passwd %>
-<% d_group %>
-<% a_group %>

@@ -1,0 +1,8 @@
+<form action="<% request.uri_base %> /del" methood="post">
+삭제할 아이디
+<hr />
+<label for="id">ID : </label><input type="text" name="u_id" id="u_id" /><br />
+<hr />
+
+<input type="submit" value="Submit" />
+</form>
