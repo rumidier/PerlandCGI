@@ -1,4 +1,4 @@
-<form action="<% request.uri_base %>/del" methood="post">
+<form action="<% request.uri_base %>/del" method="post">
 삭제할 아이디
 <hr />
 <label for="id">ID : </label><input type="text" name="u_id" id="u_id" /><br />
