@@ -57,6 +57,13 @@ get '/del' => sub {
 post '/del' => sub {
     my $u_id = param('u_id');
 
+    debug "+++++++++++++++++++++++++\n";
+    debug "+++++++++++++++++++++++++\n";
+    debug "+++++++++++++++++++++++++\n";
+    debug "+++++++++++++++++++++++++\n";
+    debug "+++++++++++++++++++++++++\n";
+    user_del($u_id);
+
 	template 'del';
 };
 
@@ -83,10 +90,24 @@ sub user_add {
 };
 
 sub user_del {
+    my @users = qw/ 
+                    rumidier-test
+                    rumidier-test-16
+                    rmidier-test-16-2
+                    /;
     my ($id) = @_;
 
     my $pu = Passwd::Unix->new();
-    $pu->del($id);
+
+    given ($id) {
+        when (@users) {
+            debug "-------------------------------------------------------\n";
+            debug "---------------|    $id    |-----------------\n";
+            debug "-------------------------------------------------------\n";
+#            $pu->del($_)
+        }
+    }
+
 };
 
 
