@@ -58,6 +58,7 @@ post '/del' => sub {
     user_del($u_id);
 };
 
+=pod
 sub mk_dir {
     my ( $id, $uid ) = @_;
 
@@ -83,6 +84,7 @@ sub rm_dir {
         }
     );
 }
+=cut
 
 sub ug_del {
     my $id = shift;
@@ -99,6 +101,8 @@ sub user_add {
 
     my $de_name = utf8::decode("$name");
     my $new_uid = $pu->maxuid + 1;
+    debug "$new_uid\n";
+=pod
     my $err = $pu->user( $id, $pu->encpass($passwd), $new_uid,
         $grp->gid('cv'), $de_name, "/home/$id", "/sbin/nologin" );
 
@@ -122,7 +126,8 @@ sub user_add {
         undef $grp;
     }
 
-    mk_dir("$id", $new_uid);
+# mk_dir("$id", $new_uid);
+=cut
 }
 
 sub user_del {
