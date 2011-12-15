@@ -99,12 +99,17 @@ sub user_add {
     my $pu  = Passwd::Unix->new();
     my $grp = new Unix::GroupFile "/etc/group";
 
-    my $de_name = utf8::upgrade("$name");
-    debug "-----| name : $de_name |----\n";
     my $new_uid = $pu->maxuid + 1;
+    debug "\n";
+    debug "\n";
+    debug "\n";
+    debug "name :    $name\n";
+    debug "\n";
+    debug "\n";
+    debug "\n";
 =pod
     my $err = $pu->user( $id, $pu->encpass($passwd), $new_uid,
-        $grp->gid('cv'), $de_name, "/home/$id", "/sbin/nologin" );
+        $grp->gid('cv'), $name, "/home/$id", "/sbin/nologin" );
 
     if ( !($err) ) {
         debug "------not user add\n\n\n\n";
