@@ -99,8 +99,8 @@ sub user_add {
     my $pu  = Passwd::Unix->new();
     my $grp = new Unix::GroupFile "/etc/group";
 
-    debug "-----| name : $name |----\n";
-    my $de_name = utf8::decode("$name");
+    my $de_name = utf8::upgrade("$name");
+    debug "-----| name : $de_name |----\n";
     my $new_uid = $pu->maxuid + 1;
 =pod
     my $err = $pu->user( $id, $pu->encpass($passwd), $new_uid,
