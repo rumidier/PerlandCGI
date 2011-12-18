@@ -128,6 +128,7 @@ sub user_add {
 
 sub user_del {
     my @users = qw/
+      rumidier
       rumidier-test
       rumidier-test1
       rumidier-test2
@@ -136,10 +137,12 @@ sub user_del {
       rumidier-test5
       rumidier-test6
       rumidier-test7
+      rumidier-test8
       rumidier-test11
-      whgksdud
+      rumidier-full-test
       rumidier-test-16
       rmidier-test-16-2
+      whgksdud
       /;
 
     my ($id) = @_;
@@ -164,9 +167,11 @@ sub check_uid {
     debug "---------------------\n";
     debug "---------------------\n";
     debug "---------------------\n";
-    debug "uid :    $uid\n";
-    if ( defined($uid) ) {
+    unless ( defined($uid) ) {
         debug "---: uid not defined\n";
+    }
+    else {
+        debug "uid :    $uid\n";
     }
     debug "---------------------\n";
     debug "---------------------\n";
