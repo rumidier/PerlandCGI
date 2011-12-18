@@ -34,16 +34,24 @@ post '/add' => sub {
     my $u_passwd = param('passwd');
     my $groups   = param('l_group');
 
-    check_uid( 'ruru-test');
-    check_uid( $u_id );
-    user_add( $u_id, $u_passwd, $u_name, $groups );
 
-    template 'add',
-      {
-        u_id     => $u_id,
-        u_name   => $u_name,
-        u_passwd => $u_passwd,
-      };
+    if ( defined(check_uid( $u_id )) ) {
+        user_add( $u_id, $u_passwd, $u_name, $groups );
+
+        template 'add',
+                 {
+                     u_id     => $u_id,
+                     u_name   => $u_name,
+                     u_passwd => $u_passwd,
+                 };
+    }
+    else {
+        template '/del_err',
+                 {
+                     u_id     => $u_id,
+                     u_name   => $u_name,
+                 };
+    }
 
 };
 
@@ -56,6 +64,9 @@ post '/del' => sub {
 
     template 'del';
     user_del($u_id);
+};
+
+post '/del_err' => sub {
 };
 
 sub mk_dir {
