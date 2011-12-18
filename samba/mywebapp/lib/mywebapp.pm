@@ -34,10 +34,8 @@ post '/add' => sub {
     my $u_passwd = param('passwd');
     my $groups   = param('l_group');
 
-#
-# groups가 NULL 인지 비교한후 NULL이 아니면 문자열 인지, arry ref 인지
-# 확인하여 처리한다.
-#
+    check_uid( 'ruru-test');
+    check_uid( $u_id );
     user_add( $u_id, $u_passwd, $u_name, $groups );
 
     template 'add',
@@ -109,10 +107,6 @@ sub user_add {
         "/sbin/nologin"
     );
 
-    if ( !($err) ) {
-        debug "------not user add\n\n\n\n";
-    }
-
     if ( defined $groups ) {
         if ( ref($groups) eq 'ARRAY' ) {
             my $group_count = @{$groups} - 1;
@@ -159,6 +153,22 @@ sub user_del {
             ug_del($_);
         }
     }
+}
+
+sub check_uid {
+    my $id = shift;
+    my $pu = Passwd::Unix->new();
+
+    my $uid = $pu->uid($id);
+    debug "---------------------\n";
+    debug "---------------------\n";
+    debug "---------------------\n";
+    debug "---------------------\n";
+    debug "uid :    $uid\n";
+    debug "---------------------\n";
+    debug "---------------------\n";
+    debug "---------------------\n";
+    debug "---------------------\n";
 }
 
 true;
