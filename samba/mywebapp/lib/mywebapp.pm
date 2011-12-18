@@ -1,5 +1,7 @@
 package mywebapp;
 
+use lib 'lib';
+
 use 5.014;
 use utf8;
 use warnings;
@@ -10,7 +12,7 @@ use Unix::GroupFile;
 use Template;
 use Data::Dumper;
 use Dancer ':syntax';
-use Encode 'from_to';
+use Encode;
 
 our $VERSION = '0.1';
 
@@ -58,14 +60,13 @@ post '/del' => sub {
     user_del($u_id);
 };
 
-=pod
 sub mk_dir {
     my ( $id, $uid ) = @_;
 
     make_path(
         "/home/$id",
         {
-            owner => $uid,
+            owner => $id,
             group => 'cv',
             mode  => 0700
         }
@@ -84,7 +85,6 @@ sub rm_dir {
         }
     );
 }
-=cut
 
 sub ug_del {
     my $id = shift;
@@ -97,19 +97,17 @@ sub ug_del {
 sub user_add {
     my ( $id, $passwd, $name, $groups ) = @_;
     my $pu  = Passwd::Unix->new();
-    my $grp = new Unix::GroupFile "/etc/group";
+    my $grp = Unix::GroupFile->new("/etc/group");
 
-    my $new_uid = $pu->maxuid + 1;
-    debug "\n";
-    debug "\n";
-    debug "\n";
-    debug "name :    $name\n";
-    debug "\n";
-    debug "\n";
-    debug "\n";
-=pod
-    my $err = $pu->user( $id, $pu->encpass($passwd), $new_uid,
-        $grp->gid('cv'), $name, "/home/$id", "/sbin/nologin" );
+    my $err = $pu->user(
+        $id,
+        $pu->encpass($passwd),
+        $pu->maxuid + 1,
+        $grp->gid('cv'),
+        decode_utf8("$name"),
+        "/home/$id",
+        "/sbin/nologin"
+    );
 
     if ( !($err) ) {
         debug "------not user add\n\n\n\n";
@@ -131,8 +129,7 @@ sub user_add {
         undef $grp;
     }
 
-# mk_dir("$id", $new_uid);
-=cut
+    mk_dir("$id");
 }
 
 sub user_del {
@@ -146,9 +143,11 @@ sub user_del {
       rumidier-test6
       rumidier-test7
       rumidier-test11
+      whgksdud
       rumidier-test-16
       rmidier-test-16-2
       /;
+
     my ($id) = @_;
 
     my $pu = Passwd::Unix->new();
