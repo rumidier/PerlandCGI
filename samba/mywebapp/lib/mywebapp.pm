@@ -165,6 +165,9 @@ sub check_uid {
     debug "---------------------\n";
     debug "---------------------\n";
     debug "uid :    $uid\n";
+    if ( defined($uid) ) {
+        debug "---: uid not defined\n";
+    }
     debug "---------------------\n";
     debug "---------------------\n";
     debug "---------------------\n";
