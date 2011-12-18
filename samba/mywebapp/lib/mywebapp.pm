@@ -35,7 +35,15 @@ post '/add' => sub {
     my $groups   = param('l_group');
 
 
-    if ( defined(check_uid( $u_id )) ) {
+    my $check_uid = check_uid( $u_id );
+    if ( $check_uid ) {
+        template '/del_err',
+                 {
+                     u_id     => $u_id,
+                     u_name   => $u_name,
+                 };
+    }
+    else {
         user_add( $u_id, $u_passwd, $u_name, $groups );
 
         template 'add',
@@ -45,14 +53,12 @@ post '/add' => sub {
                      u_passwd => $u_passwd,
                  };
     }
-    else {
-        template '/del_err',
-                 {
-                     u_id     => $u_id,
-                     u_name   => $u_name,
-                 };
+=pod
+    if ( defined( $check_uid ) ) {
     }
-
+    else {
+    }
+=cut
 };
 
 get '/del' => sub {
@@ -174,20 +180,10 @@ sub check_uid {
     my $pu = Passwd::Unix->new();
 
     my $uid = $pu->uid($id);
-    debug "---------------------\n";
-    debug "---------------------\n";
-    debug "---------------------\n";
-    debug "---------------------\n";
-    unless ( defined($uid) ) {
-        debug "---: uid not defined\n";
-    }
-    else {
-        debug "uid :    $uid\n";
-    }
-    debug "---------------------\n";
-    debug "---------------------\n";
-    debug "---------------------\n";
-    debug "---------------------\n";
+
+    return 0 unless defined( $uid );
+
+    return $uid;
 }
 
 true;
