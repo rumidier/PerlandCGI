@@ -1,0 +1,4 @@
+[% u_id %]
+[% u_name %]
+이미 사용되는 유저 입니다.
+<a href="[% request.uri_base %]/select/">돌아가기</a>
