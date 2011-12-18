@@ -1,4 +1,4 @@
-<form action="<% request.uri_base %>/add" method="post">
+<form action="[% request.uri_base %]/add" method="post">
 ID :      <input type="text" name="u_id" id="u_id"/> <br/>
 사용자 :  <input type="text" name="u_name" id="u_name"/> <br/>
 비밀번호 :<input type="password" name="passwd" id="passwd"/> <br/>
@@ -17,6 +17,6 @@ ID :      <input type="text" name="u_id" id="u_id"/> <br/>
 </form>
 <hr />
 
-<% u_id %>
-<% u_name %>
-<% u_passwd %>
+[% u_id %]
+[% u_name %]
+[% u_passwd %]

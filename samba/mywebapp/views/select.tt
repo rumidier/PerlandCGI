@@ -1,8 +1,8 @@
-<form action="<% request.uri_base %>/add" method="get">
+<form action="[% request.uri_base %]/add" method="get">
   <input type="submit" value="추가" />
 </form>
 <hr />
 
-<form action="<% request.uri_base %>/del" method="get">
+<form action="[% request.uri_base %]/del" method="get">
   <input type="submit" value="삭제" />
 </form>
