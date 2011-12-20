@@ -9,6 +9,7 @@ use strict;
 use Passwd::Unix;
 use File::Path qw/ make_path remove_tree /;
 use Unix::GroupFile;
+use Passwd::Samba;
 use Template;
 use Data::Dumper;
 use Dancer ':syntax';
@@ -29,10 +30,11 @@ get '/add' => sub {
 };
 
 post '/add' => sub {
-    my $u_id     = param('u_id');
-    my $u_name   = param('u_name');
-    my $u_passwd = param('passwd');
-    my $groups   = param('l_group');
+    my $u_id       = param('u_id');
+    my $u_name     = param('u_name');
+    my $u_passwd   = param('passwd');
+    my $sam_passwd = param('samba_passwd');
+    my $groups     = param('l_group');
 
 
     my $check_uid = check_uid( $u_id );
@@ -45,20 +47,16 @@ post '/add' => sub {
     }
     else {
         user_add( $u_id, $u_passwd, $u_name, $groups );
+        my $ps = Passwd::Samba->new();
+        my $err = $ps->passwd( $u_id, $sam_passwd );
 
         template 'add',
                  {
                      u_id     => $u_id,
                      u_name   => $u_name,
-                     u_passwd => $u_passwd,
+                     u_passwd => "$u_passwd",
                  };
     }
-=pod
-    if ( defined( $check_uid ) ) {
-    }
-    else {
-    }
-=cut
 };
 
 get '/del' => sub {
