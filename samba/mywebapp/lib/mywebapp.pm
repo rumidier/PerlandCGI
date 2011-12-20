@@ -55,7 +55,7 @@ post '/add' => sub {
                  };
         }
 
-        samba_user_add(
+        samba_user_add( $u_id, $sam_passwd );
         template 'add',
                  {
                      u_id     => $u_id,
@@ -189,6 +189,18 @@ sub check_uid {
     return 0 unless defined( $uid );
 
     return $uid;
+}
+
+sub samba_user_add {
+    my ( $id, $sam_passwd ) = @_;
+    my $ps = Passwd::samba->new();
+
+
+    my $err = $ps->passwd( $id, $sam_passwd );
+
+    foreach my $user ($ps->users) {
+        print "Username: $user\nUID: ", $ps->uid($user), "\n\n";
+    }
 }
 
 true;
