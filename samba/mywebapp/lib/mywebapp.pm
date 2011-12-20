@@ -55,7 +55,6 @@ post '/add' => sub {
                  };
         }
 
-        samba_user_add(
         template 'add',
                  {
                      u_id     => $u_id,
