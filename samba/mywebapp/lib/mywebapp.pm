@@ -46,10 +46,16 @@ post '/add' => sub {
                  };
     }
     else {
-        user_add( $u_id, $u_passwd, $u_name, $groups );
-        my $ps = Passwd::Samba->new();
-        my $err = $ps->passwd( $u_id, $sam_passwd );
+        my $check = user_add( $u_id, $u_passwd, $u_name, $groups );
+        if ( $check ) {
+        template '/del_err',
+                 {
+                     u_id     => $u_id,
+                     u_name   => $u_name,
+                 };
+        }
 
+        samba_user_add(
         template 'add',
                  {
                      u_id     => $u_id,
@@ -121,6 +127,7 @@ sub user_add {
         "/home/$id",
         "/sbin/nologin"
     );
+    return unless $err;
 
     if ( defined $groups ) {
         if ( ref($groups) eq 'ARRAY' ) {
