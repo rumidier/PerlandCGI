@@ -44,8 +44,16 @@ post '/add' => sub {
                  };
     }
     else {
-        user_add( $u_id, $u_passwd, $u_name, $groups );
+        my $check = user_add( $u_id, $u_passwd, $u_name, $groups );
+        if ( $check ) {
+        template '/del_err',
+                 {
+                     u_id     => $u_id,
+                     u_name   => $u_name,
+                 };
+        }
 
+        samba_user_add(
         template 'add',
                  {
                      u_id     => $u_id,
@@ -53,12 +61,6 @@ post '/add' => sub {
                      u_passwd => $u_passwd,
                  };
     }
-=pod
-    if ( defined( $check_uid ) ) {
-    }
-    else {
-    }
-=cut
 };
 
 get '/del' => sub {
@@ -123,6 +125,7 @@ sub user_add {
         "/home/$id",
         "/sbin/nologin"
     );
+    return unless $err;
 
     if ( defined $groups ) {
         if ( ref($groups) eq 'ARRAY' ) {
