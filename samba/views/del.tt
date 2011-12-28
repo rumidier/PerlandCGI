@@ -6,3 +6,5 @@
 
 <input type="submit" value="Submit" />
 </form>
+<hr />
+[% u_id %][% string %]

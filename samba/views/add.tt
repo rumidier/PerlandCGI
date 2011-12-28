@@ -2,7 +2,7 @@
 ID :      <input type="text" name="u_id" id="u_id"/> <br/>
 사용자 :  <input type="text" name="u_name" id="u_name"/> <br/>
 비밀번호 :<input type="password" name="passwd" id="passwd"/> <br/>
-삼바비밀번호 :<input type="password" name="passwd" id="passwd"/> <br/>
+삼바비밀번호 :<input type="samba_password" name="samba_passwd" id="samba_passwd"/> <br/>
 <fieldset>
   <legend>another_groups</legend>
     <input type="checkbox" name="l_group" value="av_cath" />
@@ -17,7 +17,4 @@ ID :      <input type="text" name="u_id" id="u_id"/> <br/>
   <input type="submit" value="Submit" />
 </form>
 <hr />
-
-[% u_id %]
-[% u_name %]
-[% u_passwd %]
+[% u_id %] [% string %]

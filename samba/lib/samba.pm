@@ -55,7 +55,7 @@ post '/add' => sub {
             template '/add',
                      {
                          u_id => $u_id,
-                         string => '생성이 실패 하였습니다.',
+                         string => '생성에 실패 하였습니다.',
                      };
         }
         else {
@@ -77,11 +77,11 @@ post '/del' => sub {
 
     my $user_del_value = user_del($u_id);
 
-    if ( defined($user_del_value) ) {
+    if ( ($user_del_value) ) {
         template 'del',
                  {
                      u_id     => $u_id,
-                     string => '삭제에 성공 하였습니다.',
+                     string   => '삭제에 성공 하였습니다.',
                  };
     }
     else {
@@ -173,12 +173,14 @@ sub user_del {
 
     my $pu = Passwd::Unix->new();
 
-    my $user_del_value = $pu->del($_);
-    return 0 unless defined($user_del_value);
-    my $dir_del_value  = rm_dir($_);
-    return 0 unless defined($dir_del_value);
-    my $user_group_del_value  = ug_del($_);
-    return 0 unless defined($user_group_del_value);
+    my $user_del_value = $pu->del($id);
+    return 0 unless ($user_del_value);
+    my $dir_del_value  = rm_dir($id);
+    return 0 unless ($dir_del_value);
+    my $user_group_del_value  = ug_del($id);
+    return 0 unless ($user_group_del_value);
+
+    return 1;
 }
 
 sub uid_exist_check {
