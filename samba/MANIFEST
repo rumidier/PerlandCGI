@@ -6,7 +6,7 @@ environments/production.yml
 views/index.tt
 views/layouts/main.tt
 MANIFEST.SKIP
-lib/mywebapp.pm
+lib/samba.pm
 public/css/style.css
 public/css/error.css
 public/images/perldancer-bg.jpg

@@ -2,7 +2,7 @@ package mywebapp;
 
 use lib 'lib';
 
-use 5.014;
+use 5.010;
 use utf8;
 use warnings;
 use strict;
@@ -124,6 +124,7 @@ sub rm_dir {
 
 sub ug_del {
     my $id = shift;
+    return 0 unless $id;
 
     my $grp =Unix::GroupFile->new("/etc/group");
 
@@ -174,8 +175,10 @@ sub user_del {
 
     my $user_del_value = $pu->del($_);
     return 0 unless defined($user_del_value);
-    rm_dir($_);
-    ug_del($_);
+    my $dir_del_value  = rm_dir($_);
+    return 0 unless defined($dir_del_value);
+    my $user_group_del_value  = ug_del($_);
+    return 0 unless defined($user_group_del_value);
 }
 
 sub uid_exist_check {
