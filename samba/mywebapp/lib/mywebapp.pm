@@ -37,31 +37,34 @@ post '/add' => sub {
     my $groups     = param('l_group');
 
 
-    my $check_uid = check_uid( $u_id );
-    if ( $check_uid ) {
-        template '/del_err',
-                 {
-                     u_id     => $u_id,
-                     u_name   => $u_name,
-                 };
-    }
-    else {
-        my $check = user_add( $u_id, $u_passwd, $u_name, $groups );
-        if ( $check ) {
-        template '/del_err',
-                 {
-                     u_id     => $u_id,
-                     u_name   => $u_name,
-                 };
-        }
-
-        samba_user_add( $u_id, $sam_passwd );
+    my $uid_check = uid_exist_check( $u_id );
+    if ( $uid_check ) {
         template 'add',
                  {
                      u_id     => $u_id,
-                     u_name   => $u_name,
-                     u_passwd => "$u_passwd",
+                     string   => '가 현재 존재 합니다',
                  };
+    }
+    else {
+#        samba_user_add( $u_id, $sam_passwd );
+#<fh>가 열리지 않음
+        my $user_add_value = user_add( $u_id, $u_passwd, $u_name, $groups );
+
+        unless ( $user_add_value ) {
+            user_del($u_id);
+            template '/add',
+                     {
+                         u_id => $u_id,
+                         string => '생성이 실패 하였습니다.',
+                     };
+        }
+        else {
+            template 'add',
+                     {
+                         u_id     => $u_id,
+                         string => '생성에 성공 하였습니다.',
+                     };
+        }
     }
 };
 
@@ -72,17 +75,29 @@ get '/del' => sub {
 post '/del' => sub {
     my $u_id = param('u_id');
 
-    template 'del';
-    user_del($u_id);
-};
+    my $user_del_value = user_del($u_id);
 
-post '/del_err' => sub {
+    if ( defined($user_del_value) ) {
+        template 'del',
+                 {
+                     u_id     => $u_id,
+                     string => '삭제에 성공 하였습니다.',
+                 };
+    }
+    else {
+        template 'del',
+                 {
+                     u_id     => $u_id,
+                     string => '삭제에 실패 하였습니다.',
+                 };
+    }
 };
 
 sub mk_dir {
-    my ( $id, $uid ) = @_;
+    my ( $id ) = @_;
+    return 0 unless $id;
 
-    make_path(
+    my $make_path_success = make_path(
         "/home/$id",
         {
             owner => $id,
@@ -90,10 +105,12 @@ sub mk_dir {
             mode  => 0700
         }
     );
+    return 0 unless $make_path_success;
 }
 
 sub rm_dir {
     my $id = shift;
+    return 0 unless $id;
 
     remove_tree(
         "/home/$id",
@@ -127,7 +144,7 @@ sub user_add {
         "/home/$id",
         "/sbin/nologin"
     );
-    return unless $err;
+    return 0 unless $err;
 
     if ( defined $groups ) {
         if ( ref($groups) eq 'ARRAY' ) {
@@ -145,42 +162,23 @@ sub user_add {
         undef $grp;
     }
 
-    mk_dir("$id");
+    my $mk_dir_success = mk_dir("$id");
+    return 0 unless $mk_dir_success
 }
 
 sub user_del {
-    my @users = qw/
-      rumidier
-      rumidier-test
-      rumidier-test1
-      rumidier-test2
-      rumidier-test3
-      rumidier-test4
-      rumidier-test5
-      rumidier-test6
-      rumidier-test7
-      rumidier-test8
-      rumidier-test11
-      rumidier-full-test
-      rumidier-test-16
-      rmidier-test-16-2
-      whgksdud
-      /;
-
     my ($id) = @_;
+    return 0 unless $id;
 
     my $pu = Passwd::Unix->new();
 
-    given ($id) {
-        when (@users) {
-            $pu->del($_);
-            rm_dir($_);
-            ug_del($_);
-        }
-    }
+    my $user_del_value = $pu->del($_);
+    return 0 unless defined($user_del_value);
+    rm_dir($_);
+    ug_del($_);
 }
 
-sub check_uid {
+sub uid_exist_check {
     my $id = shift;
     my $pu = Passwd::Unix->new();
 
@@ -193,7 +191,7 @@ sub check_uid {
 
 sub samba_user_add {
     my ( $id, $sam_passwd ) = @_;
-    my $ps = Passwd::samba->new();
+    my $ps = Passwd::Samba->new();
 
 
     my $err = $ps->passwd( $id, $sam_passwd );
