@@ -53,17 +53,17 @@ post '/add' => sub {
         unless ( $user_add_value ) {
             user_del($u_id);
             template '/add',
-                     {
-                         u_id => $u_id,
-                         string => '생성에 실패 하였습니다.',
-                     };
+            {
+                u_id   => $u_id,
+                string => '생성에 실패 하였습니다.',
+            };
         }
         else {
             template 'add',
-                     {
-                         u_id     => $u_id,
-                         string => '생성에 성공 하였습니다.',
-                     };
+            {
+                u_id     => $u_id,
+                string   => '생성에 성공 하였습니다.',
+            };
         }
     }
 };
@@ -73,23 +73,60 @@ get '/del' => sub {
 };
 
 post '/del' => sub {
-    my $u_id = param('u_id');
+    my $user_id = param('u_id');
+    my $uid_exist_value = uid_exist_check( $user_id );
 
-    my $user_del_value = user_del($u_id);
+    if ( $uid_exist_value ) {
+        my $uid_info = uid_get_info( $user_id );
+        my $home_dir = $uid_info->{'home'};
+        my @groups   = @{ $uid_info->{'groups'} };
 
-    if ( ($user_del_value) ) {
-        template 'del',
-                 {
-                     u_id     => $u_id,
-                     string   => '삭제에 성공 하였습니다.',
-                 };
+	template 'info_view',
+	{
+	    u_id_test    => $user_id,
+	    home_dir     => $home_dir,
+	    groups       => \@groups,
+	};
+# $uid_exist_value 가 존재 하고 id에 존재 하는 홈폴더, gid등 연계된
+# 부분에 대하여 출력한후 삭제 할것인지 재확인 
     }
     else {
-        template 'del',
-                 {
-                     u_id     => $u_id,
-                     string => '삭제에 실패 하였습니다.',
-                 };
+        if ( $user_id ) {
+    	    template 'del',
+                {
+                    u_id     => $user_id,
+                    string   => '가 존재 하지 않습니다',
+                };
+        }
+        else {
+    	    template 'del',
+                {
+                    u_id     => 'ID',
+                    string   => '를 입력해 주세요.',
+                };
+        }
+    }
+};
+
+post '/del_active/:u_id_test?' => sub {
+    my $user_id = param('u_id_test');
+    if ( $user_id ) {
+        my $user_del_value = user_del($user_id);
+
+        if ( ($user_del_value) ) {
+            template 'del',
+            {
+                u_id     => $user_id,
+                string   => '삭제에 성공 하였습니다.',
+            };
+        }
+        else {
+            template 'del',
+            {
+                u_id     => $user_id,
+               string   => '삭제에 실패 하였습니다.',
+            };
+        }
     }
 };
 
@@ -196,14 +233,37 @@ sub uid_exist_check {
 
 sub samba_user_add {
     my ( $id, $sam_passwd ) = @_;
-    my $ps = Passwd::Samba->new();
 
-
+    my $ps  = Passwd::Samba->new();
     my $err = $ps->passwd( $id, $sam_passwd );
 
     foreach my $user ($ps->users) {
         print "Username: $user\nUID: ", $ps->uid($user), "\n\n";
     }
+}
+
+sub uid_get_info {
+    my $user_id = shift;
+    return 0 unless $user_id;
+
+    my @user_info = getpwnam( $user_id );
+    my $home_dir = $user_info[7];
+
+    my @groups;
+    while (my @ent = getgrent() ) {
+        my @user = split " ", $ent[-1];
+    
+        if ($user_id ~~ @user) {
+            push @groups, $ent[0];
+        }
+    }
+
+    my %info = (
+	home   => $home_dir,
+        groups => [@groups],
+    );
+
+    return \%info;
 }
 
 true;
