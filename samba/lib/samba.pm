@@ -36,18 +36,17 @@ post '/add' => sub {
     my $sam_passwd = param('samba_passwd');
     my $groups     = param('l_group');
 
-
-    my $uid_check = uid_exist_check( $u_id );
+    my $uid_check  = uid_exist_check( $u_id );
     if ( $uid_check ) {
         template 'add',
-                 {
-                     u_id     => $u_id,
-                     string   => '가 현재 존재 합니다',
-                 };
+        {
+            u_id     => $u_id,
+            string   => '가 현재 존재 합니다',
+        };
     }
     else {
-#        samba_user_add( $u_id, $sam_passwd );
-#<fh>가 열리지 않음
+#       samba_user_add( $u_id, $sam_passwd );
+#       <fh>가 열리지 않음
         my $user_add_value = user_add( $u_id, $u_passwd, $u_name, $groups );
 
         unless ( $user_add_value ) {
@@ -81,12 +80,12 @@ post '/del' => sub {
         my $home_dir = $uid_info->{'home'};
         my @groups   = @{ $uid_info->{'groups'} };
 
-	template 'info_view',
-	{
-	    u_id_test    => $user_id,
-	    home_dir     => $home_dir,
-	    groups       => \@groups,
-	};
+        template 'info_view',
+            {
+                 u_id_test    => $user_id,
+                 home_dir     => $home_dir,
+                 groups       => \@groups,
+            };
 # $uid_exist_value 가 존재 하고 id에 존재 하는 홈폴더, gid등 연계된
 # 부분에 대하여 출력한후 삭제 할것인지 재확인 
     }
@@ -259,7 +258,7 @@ sub uid_get_info {
     }
 
     my %info = (
-	home   => $home_dir,
+	    home   => $home_dir,
         groups => [@groups],
     );
 
