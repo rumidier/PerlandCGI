@@ -5,6 +5,7 @@
 <hr />
 
 <input type="submit" value="Submit" />
+<a href="[% request.uri_base %]/select"><input type="button" value="취소" /></a>
 </form>
 <hr />
 [% u_id %][% string %]
