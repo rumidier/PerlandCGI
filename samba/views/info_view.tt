@@ -1,0 +1,11 @@
+<form action="[% request.uri_base _ '/del_active/' _ u_id_test %]" method="post">
+    [% u_id_test %] 는 존재합니다 <br />
+    [% home_dir %]이 홈디렉터리로 존재합니다. <br />
+    소속되어진 그룹 입니다.
+    <br />
+    [% FOR group IN groups %]
+        [% group %]
+    [% END %]
+    <input type="submit" value="Submit" />
+    <a href="[% request.uri_base %]/select"><input type="button" value="취소" /></a>
+</form>
